@@ -12,7 +12,9 @@ module Html.Parser.Util exposing (toVirtualDom)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Parser exposing (Node(..))
+import Set
 import VirtualDom
+import Json.Encode
 
 
 {-| Converts nodes to virtual dom nodes.
@@ -35,6 +37,14 @@ toVirtualDomEach node =
             text ""
 
 
+properties =
+    Set.fromList [ "muted" ]
+
+
 toAttribute : ( String, String ) -> Attribute msg
 toAttribute ( name, value ) =
-    attribute name value
+    if Set.member name properties then
+        property name (Json.Encode.string value)
+
+    else
+        attribute name value
