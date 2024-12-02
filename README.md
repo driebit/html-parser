@@ -8,6 +8,8 @@ import Html.Parser
 Html.Parser.run "<div><p>Hello, world!</p></div>"
 -- => Ok [ Element "div" [] [ Element "p" [] [ Text "Hello, world!" ] ] ]
 ```
+_This fork of https://github.com/hecrj/html-parser renders the media `muted` attribute as a property, instead of
+as an attribute, because it seems that in some situations it doesn't get picked up otherwise._
 
 ## Limitations
   * `<script>` tags are not fully supported.
