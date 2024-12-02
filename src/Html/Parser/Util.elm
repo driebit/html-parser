@@ -13,7 +13,6 @@ import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Parser exposing (Node(..))
 import Json.Encode
-import Set
 import VirtualDom
 
 
