@@ -12,9 +12,9 @@ module Html.Parser.Util exposing (toVirtualDom)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Parser exposing (Node(..))
+import Json.Encode
 import Set
 import VirtualDom
-import Json.Encode
 
 
 {-| Converts nodes to virtual dom nodes.
@@ -37,14 +37,12 @@ toVirtualDomEach node =
             text ""
 
 
-properties =
-    Set.fromList [ "muted" ]
-
-
 toAttribute : ( String, String ) -> Attribute msg
 toAttribute ( name, value ) =
-    if Set.member name properties then
-        property name (Json.Encode.string value)
+    case name of
+        "muted" ->
+            -- Maybe it is best to both output the property and attribute?
+            property "muted" (Json.Encode.string "true")
 
-    else
-        attribute name value
+        _ ->
+            attribute name value
