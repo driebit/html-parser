@@ -40,8 +40,10 @@ toAttribute : ( String, String ) -> Attribute msg
 toAttribute ( name, value ) =
     case name of
         "muted" ->
-            -- Maybe it is best to both output the property and attribute?
-            property "muted" (Json.Encode.string "true")
-
+            -- Use property instead of attribute for muted, because properties
+            -- are set on elements after they are created and Chrome seems to
+            -- ignore the attribute.
+            -- TODO: Better to both output the property and attribute?
+            property "muted" (Json.Encode.bool True)
         _ ->
             attribute name value
